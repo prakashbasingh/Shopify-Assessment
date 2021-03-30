@@ -13,8 +13,12 @@
       {% assign alert_inventory_number = inventory_number | plus: variant.inventory_quantity %}
     {%endif%}
   {% endfor%}
-  {% if alert_inventory_number < 9 %}
-    <p className="lowNumberInventoryAlert">Hurry!!! Only <span className="alertSpan" style="color: red">{{alert_inventory_number}}</span> left</p>
+    {% if alert_inventory_number < 9 and  alert_inventory_number >= 1 %}
+        <p className="lowNumberInventoryAlert">Hurry!!! Only <span className="alertSpan" style="color: red">{{alert_inventory_number}}</span> left</p>
+    {% elsif alert_inventory_number > 8 or alert_inventory_number < 0 %}
+        <p className="lowNumberInventoryAlert" style="color: green">"In stock & ready to ship" </p>
+    {% else %}
+        <P className="lowNumberInventoryAlert" style="color: red"> "Out of stock"</P>
   {%endif%}
 <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
   <select name="id" id="productSelect">
@@ -36,7 +40,11 @@
   {{ current_variant.price | money }}
   <label for="Quantity">quantity</label>
   <input type="number" id="Quantity" name="quantity" value="1" min="1">
-
-  <button type="submit" name="add" id="AddToCart">Add to cart</button>
+  {% if alert_inventory_number == 0%}
+      <button type="submit" name="add" id="AddToCart" disabled="disabled" style="background: #6E6E6E">Add to cart</button>
+  {% else %}
+      <button type="submit" name="add" id="AddToCart">Add to cart</button>
+  {%endif %}
+  
 </form>
 <div>{{ product.description }}</div>
