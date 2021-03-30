@@ -7,10 +7,22 @@
   </a>
 {% endfor %}
 <h1>{{ product.title }}</h1>
+  {% assign inventory_number = 0 %}
+  {% for variant in product.variants%}
+    {% if variant.available %}
+      {% assign alert_inventory_number = inventory_number | plus: variant.inventory_quantity %}
+    {%endif%}
+  {% endfor%}
+  {% if alert_inventory_number < 9 %}
+    <p className="lowNumberInventoryAlert">Hurry!!! Only <span className="alertSpan" style="color: red">{{alert_inventory_number}}</span> left</p>
+  {%endif%}
 <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
   <select name="id" id="productSelect">
     {% for variant in product.variants %}
+    
+
       {% if variant.available %}
+      
         <option value="{{ variant.id }}">
           {{ variant.title }} - {{ variant.price | money_with_currency }}
         </option>
@@ -24,6 +36,7 @@
   {{ current_variant.price | money }}
   <label for="Quantity">quantity</label>
   <input type="number" id="Quantity" name="quantity" value="1" min="1">
+
   <button type="submit" name="add" id="AddToCart">Add to cart</button>
 </form>
 <div>{{ product.description }}</div>
