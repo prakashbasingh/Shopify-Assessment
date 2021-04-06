@@ -47,14 +47,14 @@
           {% if product.images.size > 1 %}
           <ul class="product-single__thumbnails grid grid--uniform" id="ProductThumbs">
         
-            {% case product.images.size %}
+            <!-- {% case product.images.size %}
             {% when 2 %}
             {% assign thumbnail_width = 'small--one-half medium-up--push-one-sixth medium-up--one-third' %}
             {% when 4 %}
             {% assign thumbnail_width = 'small--one-half medium-up--one-quarter' %}
             {% else %}
             {% assign thumbnail_width = 'small--one-third medium-up--one-third' %}
-            {% endcase %}
+            {% endcase %} -->
         
             {% for image in product.images %}
             <li class="grid__item {{ thumbnail_width }}">
@@ -146,42 +146,32 @@
 <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
             {% unless product.has_only_default_variant %}
-
-                <select name="id" id="ProductSelect-{{ section.id }}" class="product-single__variants">
-                  {% for variant in product.variants %}
-                  {% if variant.available %}
-                  <option {% if variant==product.selected_or_first_available_variant %} selected="selected" {% endif %}
-                    data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency
-                    }}</option>
-                  {% else %}
-                  <option disabled="disabled">
-                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                  </option>
-                  {% endif %}
-                  {% endfor %}
-                </select>
-
-
-
-              <div >
-                {% for product_option in product.options_with_values %}
-                <label style="margin-bottom: 10px;" for="ProductSelect-product-template-option-{{forloop.index}}" >{{ product_option.name }}:</label>
-
-                <div style="display: flex;">
-                  {% if product_option.name == "Color" %}
+            
+                <div>
+                  {% for product_option in product.options_with_values %}
+                  <label style="margin-top: 10px;" for="ProductSelect-product-template-option-0">{{ product_option.name }}:</label>
+                
+                  <div style="display: flex;">
+                    {% if product_option.name == "Color" %}
                     {% for value in product_option.values %}
-                      <span id="colorButton" class="single-option-selector" data-option="{{forloop.index}}" id="ProductSelect-product-template-option-{{forloop.index}}" >
+                    <div style="margin-bottom: 20px;">
+                      <a class="colorButton" {% if product_option.selected_value==value %}selected{% endif %}>
                         <img id="colorImage" src="{{value | escape | append: ".JPG" | strip | asset_url}}" alt="{{value}}" />
-                      </span>
+                      </a>
+                      <p class="productOptionValue">{{value}}</p>
+                    </div>
                     {% endfor %}
-                  {% else %}
+                    {% else %}
                     {% for value in product_option.values %}
-                      <span id="sizeButton" class="single-option-selector" data-option="{{forloop.index}}" id="ProductSelect-product-template-option-{{forloop.index}}">  {{value}} </span>
+                    <div style="margin-bottom: 20px;">
+                      <a class="sizeButton" {% if product_option.selected_value==value %}selected{% endif %}> {{value}} </a>
+                      <p class="productOptionSize">{{value}}</p>
+                    </div>
                     {% endfor %}
-                  {% endif %}
+                    {% endif %}
+                  </div>
+                  {% endfor %}
                 </div>
-                {% endfor %}
-              </div>
               
               <div className="QuantityButton">
                 <div className="labelAndAlert" style="display: flex; align-items: center;">
@@ -209,10 +199,7 @@
                 </div>
               </div>
             {% endunless %}
-             
-
-
-              
+          
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
             <!-- {% if section.settings.product_quantity_enable  %}
               <div class="product-single__quantity">
@@ -284,17 +271,17 @@
         {% endif %}
       </div>
     </div> 
-
-  </div>
-    <div class="productButtonContainer">
-      <a href="{{ routes.root_url }}">
-        <button>
-          &#8592 Back To Shirts
-        </button>
-      </a>
-    </div>
- 
+  </div> 
 </div>
+
+  <div class="productButtonContainer">
+    <a href="{{ routes.root_url }}">
+      <button>
+        &#8592 Back To Shirts
+      </button>
+    </a>
+  </div>
+  
 <footer class="productFooter">
   <div class="footerContentFirst">
     <div class=" quicklinks">

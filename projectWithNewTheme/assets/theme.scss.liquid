@@ -5113,6 +5113,8 @@ button {
 }
 
 // new STYLES***************************************************
+
+//  for Nav Bar========================
 .logoHeader{
   // border: 1px solid red;
   width: 20%;
@@ -5170,8 +5172,11 @@ button {
 #CartCount{
   margin:0;
 }
+
+//  for Product Template file ======================================
 .allImageContainer{
-  
+  // display: flex;
+  // flex-direction: column;
 }
 .featuredImage{
   width: 58%;
@@ -5180,9 +5185,26 @@ button {
 .thumbnailDiv{
   width: 40%;
   float: left;
-  // display: flex;
-  // flex-direction: column;
+  
 
+}
+.product-single__thumbnails{
+  // display: flex !important;
+  // flex-direction: column !important;
+  // width: 80%;
+  // overflow-y: auto;
+  // overflow-y: scroll;
+  // overflow-y: hidden;
+  // overflow: auto;
+  // text-align:justify;
+}
+.product-single__thumbnails > li{
+  width: 100%;
+  height: 20%;
+}
+.product-single__featured-image-wrapper{
+  width: 100%;
+  height: 100%;
 }
 
 .ProductContainerDiv{
@@ -5237,7 +5259,8 @@ button {
 }
 
 .productButtonContainer{
-  margin-left: 50%;
+  padding: 0 40%;
+  margin: auto;
 }
 .buttonContainer{
    max-width: 100%;
@@ -5311,12 +5334,20 @@ button {
    
   }
 }
-#colorButton{
+.colorButton{
   width:50px; 
   height:50px; 
-  margin:5px; 
   border-radius: 50%; 
   cursor: pointer;
+  &:hover + .productOptionValue{
+    display: block;
+    z-index: 2;
+    position: absolute;
+    color: black;
+    font-weight: bold;
+    padding: 5px;
+    text-shadow: 0 0 3px #FF0000, 0 0 3px #0000FF;
+  }
 }
 #colorImage{
   width:50px; 
@@ -5324,7 +5355,7 @@ button {
   margin:5px; 
   border-radius: 50%;
 }
-#sizeButton{
+.sizeButton{
    display: flex;
    justify-content: center; 
    align-items: center;
@@ -5337,4 +5368,22 @@ button {
    border: 1px solid gray;
    border-radius: .3rem;
    margin-bottom: 10px;
+   &:hover + .productOptionSize{
+    display: block;
+    z-index: 2;
+    position: absolute;
+    color: black;
+    font-weight: bold;
+    padding: 5px;
+    text-shadow: 0 0 3px #FF0000, 0 0 3px #0000FF;
+  }
+}
+
+.productOptionValue{
+  display:none;
+  
+}
+.productOptionSize{
+  display:none;
+  
 }
