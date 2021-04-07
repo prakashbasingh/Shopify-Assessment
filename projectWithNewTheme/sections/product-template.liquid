@@ -245,21 +245,13 @@
                 </div>
             </div>
 
-            <div>
-              {% if recommendations.performed %}
-                {% if recommendations.products_count > 0 %}
-                  {% for product in recommendations.products %}
-                    {{ product.title | link_to: product.url }}
-                  {% endfor %}
-                {% endif %}
-              {% else %}
-                <div class="placeholder">It seems recommendation.performed is set to false</div>
-              {% endif %}              
-            </div>
+            
 
         </div>
 
-
+        <div>
+            {% section "product-recommendations" %}          
+        </div>
 
         {% if section.settings.product_description_position == 'right' %}
           {%- assign position = 'right' -%}
@@ -281,7 +273,7 @@
       </button>
     </a>
   </div>
-  
+
 <footer class="productFooter">
   <div class="footerContentFirst">
     <div class=" quicklinks">
