@@ -5179,31 +5179,37 @@ button {
   // flex-direction: column;
 }
 .featuredImage{
-  width: 58%;
+  width: 68%;
   float: right;
 }
 .thumbnailDiv{
-  width: 40%;
+  width: 30%;
   float: left;
   
 
 }
 .product-single__thumbnails{
-
   width: 100%;
   height: 60vh;
   margin: auto;
   overflow-y: auto;
  
   li{
-    width: 100%;
-    height: 20%;
-    margin: 60px 0;
+    width: 80%;
+    height: 30%;
+    margin: 30px 0;
+    border: 1px solid #d1d1cf;
+    padding: 0;
   }
 
   li:first-child{
     margin-top: 10px;
   }
+}
+.product-single__thumbnails li img{
+  flex-shrink: 0;
+  width: 100%;
+    height: 100%;
 }
 .product-single__thumbnails::-webkit-scrollbar {
   display: none;
@@ -5212,6 +5218,30 @@ button {
 .product-single__featured-image-wrapper{
   width: 100%;
   height: 100%;
+}
+
+.chevronIcon{
+  position: relative;
+}
+.chevronIcon .productImage{
+  display: block;
+}
+.chevronIcon .leftIcon{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 2;
+}
+.chevronIcon .rightIcon{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 2;
+
+}
+
+.layer{
+  font-size: 50px;
 }
 
 .ProductContainerDiv{
@@ -5335,7 +5365,7 @@ button {
   align-items: center;
   height: 50px;
   background-color: rgb(247, 245, 245);
-  padding: 0 15%;
+  padding: 0 10%;
   font-size:.7rem;
   .linkToPaymentMethods{
     ul{
@@ -5370,6 +5400,7 @@ button {
    display: flex;
    justify-content: center; 
    align-items: center;
+   flex-wrap: wrap;
    font-size: .7rem; 
    height: 30px; 
    width: 70px; 
@@ -5398,3 +5429,49 @@ button {
   display:none;
   
 }
+
+// for quantity input#################################
+.qtydiv {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  // width: 150px;
+  height: 35px;  
+  border: 1px solid #d1cfcf;
+  border-radius: .5rem;
+  padding: 0 10px;
+}
+.qtydiv .qtybox .btnqty{
+  // display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  font-size: 30px;
+  padding: 5px;
+  color: #757575;
+  height: 35px; 
+}
+.qtydiv .btnqty.qtyminus{
+  margin-bottom: 30px;
+  padding-right: 30px;
+}
+.qtydiv .btnqty.qtyplus{
+  margin-bottom: 30px;
+  padding-left: 0 30px;
+
+}
+.qtydiv .quantity-input{
+  border: none;
+  padding: 8px;
+  text-align: center;
+  width: 50px;
+  outline: none;
+  background-color: #ffffff;
+  height: 25px; 
+  z-index: -2;
+  margin-right: 10px;
+}
+// .qtydiv {
+//   display: inline-block;
+//   padding-right: 15px;
+//   padding-top: 10px;
+// }

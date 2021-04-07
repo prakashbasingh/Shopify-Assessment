@@ -24,8 +24,12 @@
     
             {% include 'image-style' with image: image, width: 720, height: 600, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
     
-            <div id="{{ wrapper_id }}" class="product-single__featured-image-wrapper supports-js{% unless featured_image == image %} hidden{% endunless %}" data-image-id="{{ image.id }}">
-              <div class="product-single__photos" data-image-id="{{ image.id }}" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+            <div id="{{ wrapper_id }}" class="product-single__featured-image-wrapper supports-js{% unless featured_image == image %} hidden{% endunless %} chevronIcon" data-image-id="{{ image.id }}">
+              <div class="leftIcon">
+                {% include "icon-chevron-left" %}
+              </div>
+              
+              <div class="product-single__photos productImage" data-image-id="{{ image.id }}" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
                 <img id="{{ img_id }}"
                      class="product-single__photo lazyload{% unless featured_image == image %} lazypreload{% endunless %}{% if section.settings.product_image_zoom_type == 'lightbox' %} lightbox{% endif %}"
                      {% if section.settings.product_image_zoom_type == 'zoom-in' %} data-zoom="{{ image | img_url: '1024x1024' }}"{% endif %}
@@ -36,6 +40,11 @@
                      data-sizes="auto"
                      alt="{{ image.alt | escape }}">
               </div>
+
+              <div class="rightIcon">
+                {%include "icon-chevron-right" %}
+              </div>
+
               {% if product.compare_at_price_max > product.price %}
                 <span class="badge badge--sale"><span>{{ 'products.product.on_sale' | t }}</span></span>
               {% endif %}
@@ -147,7 +156,7 @@
 
             {% unless product.has_only_default_variant %}
             
-                <div>
+                <div >
                   {% for product_option in product.options_with_values %}
                   <label style="margin-top: 10px;" for="ProductSelect-product-template-option-0">{{ product_option.name }}:</label>
                 
@@ -155,7 +164,7 @@
                     {% if product_option.name == "Color" %}
                     {% for value in product_option.values %}
                     <div style="margin-bottom: 20px;">
-                      <a class="colorButton" {% if product_option.selected_value==value %}selected{% endif %}>
+                      <a class="colorButton" class="single-option-selector" data-option="option1" id="ProductSelect-product-template-option-0" value="{{value}}" {% if product_option.selected_value==value %}selected{% endif %}>
                         <img id="colorImage" src="{{value | escape | append: ".JPG" | strip | asset_url}}" alt="{{value}}" />
                       </a>
                       <p class="productOptionValue">{{value}}</p>
@@ -175,10 +184,19 @@
               
               <div className="QuantityButton">
                 <div className="labelAndAlert" style="display: flex; align-items: center;">
-                  <div>
+                  <!-- <div>
                     <label for="Quantity">Quantity
                       <input type="number" id="Quantity" name="quantity" value="1" min="1"></input>
                     </label>
+                  </div> -->
+
+                  <div class="qtydiv">
+                    <div class="qtybox">
+                      <span class="btnqty qtyminus icon icon-minus">-</span>
+                      <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector quantity-input"
+                        readonly="">
+                      <span class="btnqty qtyplus icon icon-plus">+</span>
+                    </div>
                   </div>
               
                   <div className="alertMessage" style="margin-left: 10px">
@@ -245,12 +263,30 @@
                 </div>
             </div>
 
-            
+          {%- if recommendations.performed -%}
+            {%- if recommendations.products_count > 0 -%}
+              <!-- <hr> -->
+              {%- if section.settings.heading != blank -%}
+                <h2 class="section-header__title h3">{{ section.settings.heading | escape }}</h2>
+              {%- endif -%}
+              <div class="grid grid--uniform">
+                {%- assign grid_item_width = 'medium-up--one-quarter small--one-half' -%}
+                {%- for product in recommendations.products -%}
+                  {% include 'product-grid-item' %}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            <div data-base-url="{{ routes.product_recommendations_url }}" data-product-id="{{ product.id }}"
+              data-section-id="{{ section.id }}" data-section-type="product-recommendations"></div>
+          {%- endif -%}
 
         </div>
 
-        <div>
-            {% section "product-recommendations" %}          
+        <div >
+          {%- for product in recommendations.products -%}
+          {% include 'product-grid-item' %}
+          {%- endfor -%}
         </div>
 
         {% if section.settings.product_description_position == 'right' %}
