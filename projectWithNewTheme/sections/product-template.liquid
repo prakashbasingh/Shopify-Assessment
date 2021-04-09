@@ -246,6 +246,7 @@
                   {% include 'product-description' %}
              {% endif %}  
             </div>
+            <hr>
             <div class="shipping">
                 <div class="ship">
                   <i class="fas fa-truck"></i>
@@ -261,33 +262,26 @@
                   <i class="far fa-gem"></i>
                   <p>100% guarantee</p>
                 </div>
-            </div>
-
-          {%- if recommendations.performed -%}
-            {%- if recommendations.products_count > 0 -%}
-              <!-- <hr> -->
-              {%- if section.settings.heading != blank -%}
-                <h2 class="section-header__title h3">{{ section.settings.heading | escape }}</h2>
+            </div>  
+          </div>
+          <div class="recommendateProducts">
+            {%- if recommendations.performed -%}
+              {%- if recommendations.products_count > 0 -%}
+                {%- if section.settings.heading != blank -%}
+                  <h2 class="section-header__title h3">{{ section.settings.heading | escape }}</h2>
+                {%- endif -%}
+                <div class="grid grid--uniform">
+                  {%- assign grid_item_width = 'medium-up--one-quarter small--one-half' -%}
+                  {%- for product in recommendations.products -%}
+                    {% include 'product-grid-item' %}
+                  {%- endfor -%}
+                </div>
               {%- endif -%}
-              <div class="grid grid--uniform">
-                {%- assign grid_item_width = 'medium-up--one-quarter small--one-half' -%}
-                {%- for product in recommendations.products -%}
-                  {% include 'product-grid-item' %}
-                {%- endfor -%}
-              </div>
+            {%- else -%}
+              <div data-base-url="{{ routes.product_recommendations_url }}" data-product-id="{{ product.id }}"
+                data-section-id="{{ section.id }}" data-section-type="product-recommendations"></div>
             {%- endif -%}
-          {%- else -%}
-            <div data-base-url="{{ routes.product_recommendations_url }}" data-product-id="{{ product.id }}"
-              data-section-id="{{ section.id }}" data-section-type="product-recommendations"></div>
-          {%- endif -%}
-
-        </div>
-
-        <div >
-          {%- for product in recommendations.products -%}
-          {% include 'product-grid-item' %}
-          {%- endfor -%}
-        </div>
+          </div>
 
         {% if section.settings.product_description_position == 'right' %}
           {%- assign position = 'right' -%}

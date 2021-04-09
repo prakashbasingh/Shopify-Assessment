@@ -116,71 +116,71 @@
 
     <div id="navLinkItem">
       {% for link in linklists.main-menu.links %}
-      {% assign child_list_handle = link.title | handleize %}
-      {% if linklists[child_list_handle].links != blank %}
-      <a href="{{ link.url }}" class="navLinkTitle">{{ link.title }}</a>
-      [{% for childlink in linklists[child_list_handle].links %}
-      <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
-      {% endfor %}]
-      {% else %}
-      <a href="{{ link.url }}" class="navLinkTitle">{{ link.title }}</a>
-      {% endif %}
+        {% assign child_list_handle = link.title | handleize %}
+        {% if linklists[child_list_handle].links != blank %}
+          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title }}</a>
+          [{% for childlink in linklists[child_list_handle].links %}
+            <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+          {% endfor %}]
+        {% else %}
+          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title }}</a>
+        {% endif %}
       {% endfor %}
     </div>
 
     <div class="top-bar grid searchAndCart">
 
-    <div class="grid__item medium-up--one-fifth small--one-half searchDiv">
-       <div class="top-bar__search">
-        <!-- <a href="{{ routes.search_url }}" class="medium-up--hide">
-          {% include 'icon-search' %}
-        </a> -->
-        <form action="{{ routes.search_url }}" method="get" class="search-bar small--hide" role="search">
-         <!-- <input type="hidden" name="type" value="product">
-          <button type="submit" class="search-bar__submit">
+      <div class="grid__item medium-up--one-fifth small--one-half searchDiv">
+        <div class="top-bar__search">
+          <!-- <a href="{{ routes.search_url }}" class="medium-up--hide">
             {% include 'icon-search' %}
-            <span class="icon__fallback-text">
-              {{ 'general.search.submit' | t }}
-            </span>
-          </button> -->
-          <input type="search" name="q" class="search-bar__input searchInput" value="{{ search.terms | escape }}"  placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" />
-          <a href="{{ routes.search_url }}" class="searchIcon" >
-            <i class="fas fa-search" ></i>
-          </a>
-        </form>
+          </a> -->
+          <form action="{{ routes.search_url }}" method="get" class="search-bar small--hide" role="search">
+          <!-- <input type="hidden" name="type" value="product">
+            <button type="submit" class="search-bar__submit">
+              {% include 'icon-search' %}
+              <span class="icon__fallback-text">
+                {{ 'general.search.submit' | t }}
+              </span>
+            </button> -->
+            <input type="search" name="q" class="search-bar__input searchInput" value="{{ search.terms | escape }}"  placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" />
+            <a href="{{ routes.search_url }}" class="searchIcon" >
+              <i class="fas fa-search" ></i>
+            </a>
+          </form>
+        </div>
       </div>
-    </div>
 
-    {% if shop.customer_accounts_enabled %}
-      <div class="grid__item medium-up--two-fifths small--hide ">
-        <span class="customer-links small--hide">
-          {% if customer %}
-            {% if customer.first_name != blank %}
-              {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
-              {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+      {% if shop.customer_accounts_enabled %}
+        <div class="grid__item medium-up--two-fifths small--hide ">
+          <span class="customer-links small--hide">
+            {% if customer %}
+              {% if customer.first_name != blank %}
+                {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
+                {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+              {% else %}
+                <a href="{{ routes.account_url }}">{{ 'layout.customer.account' | t }}</a>
+              {% endif %}
+              <span class="vertical-divider"></span>
+              {{ 'layout.customer.log_out' | t | customer_logout_link }}
             {% else %}
-              <a href="{{ routes.account_url }}">{{ 'layout.customer.account' | t }}</a>
+              {{ 'layout.customer.log_in' | t | customer_login_link }}
+              <span class="vertical-divider"></span>
+              {{ 'layout.customer.create_account' | t | customer_register_link }}
             {% endif %}
-            <span class="vertical-divider"></span>
-            {{ 'layout.customer.log_out' | t | customer_logout_link }}
-          {% else %}
-            {{ 'layout.customer.log_in' | t | customer_login_link }}
-            <span class="vertical-divider"></span>
-            {{ 'layout.customer.create_account' | t | customer_register_link }}
-          {% endif %}
-        </span>
-      </div>
-    {% endif %}
+          </span>
+        </div>
+      {% endif %}
 
-    <div class="grid__item {% if shop.customer_accounts_enabled %} medium-up--two-fifths {% else %} medium-up--four-fifths {% endif %} small--one-half text-right cartDiv">
-      <a href="{{ routes.cart_url }}" class="site-header__cart">
-        {% include 'icon-cart' %}
-        <!-- <span class="small--hide"> -->
-          <!-- {{ 'layout.cart.title' | t }} -->
-          (<span id="CartCount">{{ cart.item_count }}</span>)
-        <!-- </span> -->
-      </a>
-    </div>
+      <div class="grid__item {% if shop.customer_accounts_enabled %} medium-up--two-fifths {% else %} medium-up--four-fifths {% endif %} small--one-half text-right cartDiv">
+        <a href="{{ routes.cart_url }}" class="site-header__cart">
+          {% include 'icon-cart' %}
+          <!-- <span class="small--hide"> -->
+            <!-- {{ 'layout.cart.title' | t }} -->
+            (<span id="CartCount">{{ cart.item_count }}</span>)
+          <!-- </span> -->
+        </a>
+      </div>
     </div>
 
     <hr class="small--hide hr--border">
