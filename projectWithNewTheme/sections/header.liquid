@@ -71,7 +71,7 @@
                      itemprop="logo">
               </a> -->
               <a href="{{ routes.root_url }}">
-                <h3>{{ section.settings.logo.alt | default: shop.name }}</h3>
+                <h3>{{ section.settings.logo.alt | default: shop.name | upcase }}</h3>
               </a>
             </div>
 
@@ -118,12 +118,12 @@
       {% for link in linklists.main-menu.links %}
         {% assign child_list_handle = link.title | handleize %}
         {% if linklists[child_list_handle].links != blank %}
-          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title }}</a>
+          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title}}</a>
           [{% for childlink in linklists[child_list_handle].links %}
-            <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+            <a href="{{ childlink.url }}">{{ childlink.title | escape}}</a>
           {% endfor %}]
         {% else %}
-          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title }}</a>
+          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title| capitalize }}</a>
         {% endif %}
       {% endfor %}
     </div>
