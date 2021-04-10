@@ -56,14 +56,14 @@
           {% if product.images.size > 1 %}
           <ul class="product-single__thumbnails grid grid--uniform" id="ProductThumbs">
         
-            <!-- {% case product.images.size %}
+            {% case product.images.size %}
             {% when 2 %}
             {% assign thumbnail_width = 'small--one-half medium-up--push-one-sixth medium-up--one-third' %}
             {% when 4 %}
             {% assign thumbnail_width = 'small--one-half medium-up--one-quarter' %}
             {% else %}
             {% assign thumbnail_width = 'small--one-third medium-up--one-third' %}
-            {% endcase %} -->
+            {% endcase %}
         
             {% for image in product.images %}
             <li class="grid__item {{ thumbnail_width }}">
@@ -156,29 +156,29 @@
 
             {% unless product.has_only_default_variant %}
             
-                <div >
+                <div name="id" id="ProductSelect-{{ section.id }}" >
                   {% for product_option in product.options_with_values %}
-                  <label style="margin-top: 10px;" for="ProductSelect-product-template-option-0">{{ product_option.name }}:</label>
-                
-                  <div style="display: flex;">
-                    {% if product_option.name == "Color" %}
-                    {% for value in product_option.values %}
-                    <div style="margin-bottom: 20px;">
-                      <a class="colorButton" class="single-option-selector" data-option="option1" id="ProductSelect-product-template-option-0" value="{{value}}" {% if product_option.selected_value==value %}selected{% endif %}>
-                        <img id="colorImage" src="{{value | escape | append: ".JPG" | strip | asset_url}}" alt="{{value}}" />
-                      </a>
-                      <p class="productOptionValue">{{value}}</p>
+                    <label style="margin-top: 10px;" for="ProductSelect-product-template-option-0">{{ product_option.name }}:</label>
+                  
+                    <div class="colorIconAndSizeButtons">
+                      {% if product_option.name == "Color" %}
+                        {% for value in product_option.values %}
+                          <div style="margin-bottom: 10px;">
+                            <a class="colorButton" id="ProductSelect-product-template-option-0" value="{{value}}" {% if product_option.selected_value==value %}selected{% endif %}>
+                              <img id="colorImage" src="{{value | escape | append: ".JPG" | strip | asset_url}}" alt="{{value}}" />
+                            </a>
+                            <p class="productOptionValue">{{value}}</p>
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        {% for value in product_option.values %}
+                          <div style="margin-bottom: 20px;">
+                            <a class="sizeButton" {% if product_option.selected_value==value %}selected{% endif %}> {{value}} </a>
+                            <p class="productOptionSize">{{value}}</p>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    {% for value in product_option.values %}
-                    <div style="margin-bottom: 20px;">
-                      <a class="sizeButton" {% if product_option.selected_value==value %}selected{% endif %}> {{value}} </a>
-                      <p class="productOptionSize">{{value}}</p>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                  </div>
                   {% endfor %}
                 </div>
               
@@ -312,10 +312,11 @@
     <div class="newsletter">
       <p>Newsletter</p>
       <form>
-        <input/>
+        <input type="email" placeholder="Email Address"/>
         <button>Subscribe</button>
       </form>
     </div> 
+    <hr>
   </div>
   <div class="footerContentSecond">
     <div class="linkToPaymentMethods">

@@ -118,12 +118,12 @@
       {% for link in linklists.main-menu.links %}
         {% assign child_list_handle = link.title | handleize %}
         {% if linklists[child_list_handle].links != blank %}
-          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title}}</a>
+          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title | capitalize}}</a>
           [{% for childlink in linklists[child_list_handle].links %}
-            <a href="{{ childlink.url }}">{{ childlink.title | escape}}</a>
+            <a href="{{ childlink.url }}">{{ childlink.title | escape | capitalize}}</a>
           {% endfor %}]
         {% else %}
-          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title| capitalize }}</a>
+          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title | capitalize }}</a>
         {% endif %}
       {% endfor %}
     </div>
@@ -144,9 +144,6 @@
               </span>
             </button> -->
             <input type="search" name="q" class="search-bar__input searchInput" value="{{ search.terms | escape }}"  placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" />
-            <a href="{{ routes.search_url }}" class="searchIcon" >
-              <i class="fas fa-search" ></i>
-            </a>
           </form>
         </div>
       </div>
@@ -173,17 +170,33 @@
       {% endif %}
 
       <div class="grid__item {% if shop.customer_accounts_enabled %} medium-up--two-fifths {% else %} medium-up--four-fifths {% endif %} small--one-half text-right cartDiv">
-        <a href="{{ routes.cart_url }}" class="site-header__cart">
+        <a href="{{ routes.search_url }}" class="searchIcon">
+          <i class="fas fa-search"></i>
+        </a>
+        <a href="{{ routes.cart_url }}" class="site-header__cart cartAndCount">
           {% include 'icon-cart' %}
           <!-- <span class="small--hide"> -->
             <!-- {{ 'layout.cart.title' | t }} -->
             (<span id="CartCount">{{ cart.item_count }}</span>)
           <!-- </span> -->
         </a>
+
+        {% unless linklists[section.settings.main_linklist] == blank %}
+        <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open"
+          aria-controls="MobileNav" aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
+          {% include 'icon-hamburger' %}
+          {% include 'icon-close' %}
+        </button>
+      {% endunless %}
       </div>
+
+      
+
+
+
     </div>
 
-    <hr class="small--hide hr--border">
+    <hr class="hr--border">
   </div>
 </div>
 

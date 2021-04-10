@@ -508,6 +508,7 @@ theme.Sections.prototype = _.assignIn({}, theme.Sections.prototype, {
   },
 
   _onSelect: function(evt) {
+    
     // eslint-disable-next-line no-shadow
     var instance = _.find(this.instances, function(instance) {
       return instance.id === evt.originalEvent.detail.sectionId;
@@ -1008,6 +1009,7 @@ theme.Product = (function() {
       var product = this.productSingleObject;
 
       var selectCallback = function(variant, selector) {
+
         self.productPage({
           money_format: theme.moneyFormat,
           variant: variant,
