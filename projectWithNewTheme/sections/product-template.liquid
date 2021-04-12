@@ -312,8 +312,10 @@
     <div class="newsletter">
       <p>Newsletter</p>
       <form>
-        <input type="email" placeholder="Email Address"/>
-        <button>Subscribe</button>
+        <input type="email" name="contact[email]" id="ContactFooter-email" class="input-group__field newsletter__input" value placeholder="Email address" aria-label="Email address" aria-required="true" required autocorrect="off" autocapitalize="off"/>
+        <button type="submit" class="btn newsletter__submit" name="commit" >
+          <span class="newsletter__submit-text--large">Subscribe</span>
+        </button>
       </form>
     </div> 
     <hr>

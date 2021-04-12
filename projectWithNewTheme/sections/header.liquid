@@ -118,12 +118,12 @@
       {% for link in linklists.main-menu.links %}
         {% assign child_list_handle = link.title | handleize %}
         {% if linklists[child_list_handle].links != blank %}
-          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title | capitalize}}</a>
+          <a href="{{ link.url }}" class="navLinkTitle border-bottom">{{ link.title | capitalize}}</a>
           [{% for childlink in linklists[child_list_handle].links %}
             <a href="{{ childlink.url }}">{{ childlink.title | escape | capitalize}}</a>
           {% endfor %}]
         {% else %}
-          <a href="{{ link.url }}" class="navLinkTitle">{{ link.title | capitalize }}</a>
+          <a href="{{ link.url }}" class="navLinkTitle border-bottom">{{ link.title | capitalize }}</a>
         {% endif %}
       {% endfor %}
     </div>
@@ -181,21 +181,25 @@
           <!-- </span> -->
         </a>
 
-        {% unless linklists[section.settings.main_linklist] == blank %}
-        <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open"
-          aria-controls="MobileNav" aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
-          {% include 'icon-hamburger' %}
-          {% include 'icon-close' %}
-        </button>
-      {% endunless %}
+        <script>
+          const hamburgerIcon = document.querySelector(".hamburgerIcon");
+          const navLinkItem = document.querySelector("#navLinkItem");
+          const links = document.querySelector(".navLinkItem a")
+
+          hamburgerIcon.addEventListener("click", () => {
+            navLinkItem(style="display: block")
+          })
+
+        </script>
+
+        <nav class="hamburgerIcon">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </nav>
       </div>
-
-      
-
-
-
     </div>
-
+    
     <hr class="hr--border">
   </div>
 </div>

@@ -5122,6 +5122,7 @@ button {
   justify-content:space-between;
   align-items: center;
   width: 100%;
+  z-index: 4;
   // border: 1px solid purple;
 }
 .logoHeader{
@@ -5141,6 +5142,7 @@ button {
   // text-transform:uppercase;
   font-weight: bolder;
 }
+
 #navLinkItem{
   // border: 1px solid green;
   width: 40%;
@@ -5148,10 +5150,6 @@ button {
   justify-content:center;
   align-items: center;
   margin-left: 10%;
-
-  @include media-query($small) {
-    display: none;
-}
 }
 .navLinkTitle{
   margin: 10px;
@@ -5189,7 +5187,7 @@ button {
   display:none;
 }
 .cartDiv{
-  // border: 1px solid blue;
+  border: 1px solid blue;
   width: 100%;
   padding-right: 5px;
   margin-left: 60%;
@@ -5201,6 +5199,52 @@ button {
   }
 
 }
+
+.hamburgerIcon{
+  border: 1px solid green;
+  display: none;
+}
+@include media-query($small) {
+  .line{
+    width: 30px;
+    height: 3px;
+    background: black;
+    margin: 5px;
+  }
+
+  .hamburgerIcon{
+    display: inline;
+    cursor: pointer;
+  }
+
+  #navLinkItem{
+    border: 1px solid red;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    height: 25vh;
+    width: 92vw;
+    margin-top: 240px;
+    margin-left: 0;
+    background-color: #ffffff;
+    display:none;
+  }
+ 
+  .border-bottom{
+    border-bottom: 1px solid #c0c2c0;
+    width: 95%;
+    a{
+      margin-bottom: 0 5px 5px 0;
+    }
+
+  }
+
+
+}
+
+
+
 .searchInput{
   // border: 1px solid pink;
    @include media-query($small) {
@@ -5403,10 +5447,11 @@ margin-right:0;
   padding: 2%;
 }
 
+// ####### Master Selector hider ################
 .selector-wrapper{
-  // display: none;
+  display: none;
 }
-
+// #################################################
 .shipping{
   display:flex; 
   justify-content: center; 
