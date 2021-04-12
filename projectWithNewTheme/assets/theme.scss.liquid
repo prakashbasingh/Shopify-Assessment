@@ -5187,7 +5187,7 @@ button {
   display:none;
 }
 .cartDiv{
-  border: 1px solid blue;
+  // border: 1px solid blue;
   width: 100%;
   padding-right: 5px;
   margin-left: 60%;
@@ -5201,12 +5201,12 @@ button {
 }
 
 .hamburgerIcon{
-  border: 1px solid green;
+  // border: 1px solid green;
   display: none;
 }
 @include media-query($small) {
   .line{
-    width: 30px;
+    width: 20px;
     height: 3px;
     background: black;
     margin: 5px;
@@ -5215,20 +5215,27 @@ button {
   .hamburgerIcon{
     display: inline;
     cursor: pointer;
+    margin-left: 5px;
   }
-
+ .navForMobile{
+  //  border: 1px solid blue;
+   display:none;
+   position: fixed;
+   z-index: 3;
+   height: 25vh;
+   width: 92vw;
+   margin-top: 240px;
+   margin-left: 0;
+ }
   #navLinkItem{
-    border: 1px solid red;
+    // border: 1px solid red;
     position: fixed;
     display: flex;
     flex-direction: column;
-    z-index: 3;
     height: 25vh;
     width: 92vw;
-    margin-top: 240px;
     margin-left: 0;
     background-color: #ffffff;
-    display:none;
   }
  
   .border-bottom{
